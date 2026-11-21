@@ -60,29 +60,26 @@
 
 ```text
 SerraEmbedded/
-├── firmware/                       # PlatformIO project for ESP32-S3-CAM
-│   ├── platformio.ini              # Board config (16MB Flash, 8MB OPI PSRAM) & dependencies
-│   ├── include/                    # Header files (.h)
-│   │   ├── Config.h                # GPIO definitions, calibration values, and safety thresholds
-│   │   ├── SystemState.h           # Shared state struct across tasks and web server
-│   │   ├── soil_sensors.h          # ADS1115 + native ADC1 driver interface
-│   │   ├── climate_tank.h          # DHT22 + HC-SR04 driver interface
-│   │   ├── actuators.h             # Non-blocking MOSFET controller & fail-safe logic
-│   │   └── web_server.h            # Async HTTP server, REST API & MJPEG camera stream
-│   ├── src/                        # C++ implementations (.cpp)
-│   │   ├── main.cpp                # System initialization & FreeRTOS dual-core task scheduling
-│   │   ├── soil_sensors.cpp        # Moisture filtering & hysteresis logic
-│   │   ├── climate_tank.cpp        # Ultrasonic tank level & anti-condensation fan logic
-│   │   ├── actuators.cpp           # Timed pump state machine & dry-run protection
-│   │   └── web_server.cpp          # JSON telemetry endpoints & camera frame handler
-│   └── data/                       # Static web frontend (uploaded to LittleFS)
-│       ├── index.html              # Responsive monitoring & control dashboard
-│       ├── style.css               # Dashboard styling
-│       └── app.js                  # Asynchronous status polling & manual override controls
-├── hardware/                       # Electrical schematics & mechanical files
-│   ├── schematic.png               # Full circuit diagram
-│   └── cad/                        # 3D-printable STL files for electronics enclosure
-├── images/                         # Hardware photos & wiring documentation
+├── firmware/                      # PlatformIO project for ESP32-S3-CAM
+│   ├── platformio.ini             # Board config (16MB Flash, 8MB OPI PSRAM) & dependencies
+│   ├── include/                   # Header files (.h)
+│   │   ├── Config.h               # GPIO definitions, calibration values, and safety thresholds
+│   │   ├── SystemState.h          # Shared state struct across tasks and web server
+│   │   ├── soil_sensors.h         # ADS1115 + native ADC1 driver interface
+│   │   ├── climate_tank.h         # DHT22 + HC-SR04 driver interface
+│   │   ├── actuators.h            # Non-blocking MOSFET controller & fail-safe logic
+│   │   └── web_server.h           # Async HTTP server, REST API & MJPEG camera stream
+│   ├── src/                       # C++ implementations (.cpp)
+│   │   ├── main.cpp               # System initialization & FreeRTOS dual-core task scheduling
+│   │   ├── soil_sensors.cpp       # Moisture filtering & hysteresis logic
+│   │   ├── climate_tank.cpp       # Ultrasonic tank level & anti-condensation fan logic
+│   │   ├── actuators.cpp          # Timed pump state machine & dry-run protection
+│   │   └── web_server.cpp         # JSON telemetry endpoints & camera frame handler
+│   └── data/                      # Compiled web frontend (uploaded to LittleFS via uploadfs)
+├── web-ui/                        # Vite + React/Preact + Tailwind CSS dashboard source
+│   ├── src/                       # UI components & API hooks
+│   ├── package.json
+│   └── vite.config.js             # Configured to build directly into ../firmware/data/
 ├── .gitignore
 └── README.md
 ```
