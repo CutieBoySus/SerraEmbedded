@@ -3,3 +3,5 @@
 .DS_Store
 Thumbs.db
 firmware/include/Secrets.h
+firmware/.pio/
+web-ui/node_modules/
