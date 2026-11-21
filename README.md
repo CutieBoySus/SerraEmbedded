@@ -91,6 +91,8 @@ SerraEmbedded/
 
 ## 4. How to Build, Flash, and Run
 
+### A. Real Hardware (ESP32-S3-CAM)
+
 1. **Clone the repository:**
    ```bash
    git clone [https://github.com/CutieBoySus/SerraEmbedded.git](https://github.com/CutieBoySus/SerraEmbedded.git)
@@ -114,21 +116,28 @@ SerraEmbedded/
    ```
 5. **Access the Dashboard:**
    Open the Serial Monitor (`115200 baud`) to read the assigned IP address, then open in your browser:
-   * **Dashboard UI:** `http://<ESP32_IP>/`
-   * **Live Camera Stream:** `http://<ESP32_IP>/stream`
+   - **Dashboard UI:** `http://<ESP32_IP>/`
+   - **Live Camera Stream:** `http://<ESP32_IP>/stream`
+
+### B. Virtual Simulation (Wokwi — for Remote Testing)
+
+Team members working without physical hardware can test core logic (DHT22, HC-SR04, native ADC soil sensors, and MOSFET pump timing) using the **Wokwi Simulator** (via [wokwi.com](https://wokwi.com) or the VS Code Wokwi extension):
+- Select **ESP32-S3-DevKitC-1** as target board.
+- Map potentiometers to `GPIO 1` / `GPIO 2` (simulating analog soil sensors) and LEDs to `GPIO 39–42` (simulating 12V pumps and fan).
+- *(Note: External I2C ADS1115 and OV2640 live video streaming require physical hardware validation).*
 
 ---
 
 ## 5. Media & Documentation
 
-* **Presentation Slides:** questo lo aggiugneremo
-* **Demo Video:** questo lo aggiugneremo
+- **Presentation Slides:** *To be added*
+- **Demo Video:** *To be added*
 
 ---
 
-## 6. Team Members & Contributions (DI ESEMPIO RAGA)
+## 6. Team Members & Contributions *(DI ESEMPIO RAGA)*
 
-* **Alexandro Aydagulov (Alex):** System architecture, FreeRTOS task orchestration, MOSFET actuator state machine & fail-safes, Async Web Server, MJPEG camera integration, and Web Dashboard UI.
-* **Mattia Degiampietro:** Soil moisture subsystem, I2C ADS1115 + native ADC1 driver implementation, wet/dry sensor calibration, and irrigation hysteresis logic.
-* **Raja Faizan Ali:** Environmental & water level subsystem, DHT22 climate driver, HC-SR04 ultrasonic tank calculation, and dry-run safety lockout.
-* **Taufge Songne:** Complete electrical schematic, power rail management (12V/5V/3.3V), 3D CAD electronics enclosure, acrylic greenhouse assembly, and drip irrigation plumbing.
+- **Alexandro** (`@CutieBoySus`) | System Architecture, Power Electronics, Soil Sensing & Web Stack | • Full electrical schematic in **KiCad**<br>• Perfboard soldering & power distribution (`12V → 5V` Buck Converter, common GND, `HC-SR04` voltage divider)<br>• Soil moisture firmware (`soil_sensors` via `ADS1115` I2C + `ADC1`)<br>• Core FreeRTOS architecture (`main.cpp`, `SystemState`)<br>• Asynchronous Web Server (`ESPAsyncWebServer` + REST API) & Web Dashboard UI |
+- **Mattia** | Computer Vision & Live Video Streaming | • `OV2640` camera initialization & PSRAM frame buffer management<br>• Live MJPEG video stream endpoint (`/stream`)<br>• Periodic snapshot capture for plant monitoring / external vision analysis |
+- **Raja** | Actuators, Irrigation Logic & Hydraulic Control | • `actuators` firmware module (3 independent `12V` micropumps, PWM anti-condensation fan, `5V` LED strip)<br>• Automated irrigation state machine (dry thresholds, watering duration, cooldown safety timers)<br>• MOSFET driver interfacing & plant preset profiles |
+- **Taufge** | Climate/Tank Sensing, Mechanical CAD & Hydraulics | • `climate_tank` firmware module (`DHT22` air temperature/humidity + `HC-SR04` ultrasonic tank level)<br>• 3D enclosure & electronics box CAD design (acrylic structure & mounting)<br>• Hydraulic tubing, water reservoir & drip-irrigation assembly |
